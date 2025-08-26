@@ -3,12 +3,15 @@ package com.sms.serviceimpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.sms.entity.Records;
 import com.sms.entity.Student;
+import com.sms.repository.RecordJPARepo;
 import com.sms.repository.StudentCrudRepo;
 import com.sms.repository.StudentJPARepo;
 import com.sms.repository.StudentpageRepo;
@@ -23,6 +26,8 @@ public class StudentServiceImpl implements StudentService {
 	StudentpageRepo studentpageRepo;
 	@Autowired
 	StudentJPARepo studentJPARepo;
+	@Autowired
+	RecordJPARepo recordJPARepo;
 	@Override
 	public List<Student> getAllStudent() {
 		List<Student> studentList = studentCrudRepo.findAll();
@@ -45,6 +50,22 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<Student> getStudentbyJpa(String name) {
 			return studentJPARepo.getByNameLike(name);
+	}
+
+	@Override
+	public Map saveRecords(long id, Records records) {
+		Map<String, String> response = new HashMap<>();
+		Optional<Student> student = studentJPARepo.findById(id);
+		if(student.isPresent()) {
+			Student students = student.get();
+			records.setStudent(students);
+			Records rec =  recordJPARepo.save(records);
+			response.put("Status", "Success");
+		}else {
+			response.put("Status", "Fail");
+		}
+		
+		return response;
 	}
 
 }
