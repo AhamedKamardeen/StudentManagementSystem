@@ -47,4 +47,7 @@ public class StudentController {
 			return studentService.getStudentbyJpa(name);
 		}
 		
+//		@PostMapping("save-records")
+//		public map saveRecords()
+		
 }
