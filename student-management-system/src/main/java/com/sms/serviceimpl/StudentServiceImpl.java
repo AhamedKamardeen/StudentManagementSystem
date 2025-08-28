@@ -36,9 +36,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Map saveStudent(Student student) {
-		Map<String, String> response = new HashMap<>();
-			studentCrudRepo.save(student);
-			response.put("Status", "Success");
+		Map response = new HashMap<>();
+			Student students = studentCrudRepo.save(student);
+			response.put("Status", students);
 		return response;
 	}
 
@@ -54,13 +54,13 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Map saveRecords(long id, Records records) {
-		Map<String, String> response = new HashMap<>();
+		Map response = new HashMap<>();
 		Optional<Student> student = studentJPARepo.findById(id);
 		if(student.isPresent()) {
 			Student students = student.get();
 			records.setStudent(students);
 			Records rec =  recordJPARepo.save(records);
-			response.put("Status", "Success");
+			response.put("Status", rec);
 		}else {
 			response.put("Status", "Fail");
 		}

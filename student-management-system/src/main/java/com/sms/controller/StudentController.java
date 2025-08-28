@@ -33,7 +33,7 @@ public class StudentController {
 		}
 		
 		@PostMapping("/save-student")
-		public Map<String, String> saveStudent(@RequestBody Student student){
+		public Map saveStudent(@RequestBody Student student){
 			Map response = new HashMap<>();
 			response = studentService.saveStudent(student);
 			return response;
