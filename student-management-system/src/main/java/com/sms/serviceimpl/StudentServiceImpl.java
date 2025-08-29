@@ -45,6 +45,8 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Iterable<Student> getstudentByPage(int page , int size) {
 		return studentpageRepo.findAll(PageRequest.of(page, size));
+		
+		
 	}
 
 	@Override
