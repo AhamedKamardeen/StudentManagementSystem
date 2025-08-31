@@ -29,7 +29,7 @@ public class StudentController {
 		@GetMapping("/get-all-student")
 		public List<Student> getAllStudent(){
 			List<Student> studentList = studentService.getAllStudent();
-			System.out.println("hello");
+			System.out.println("helloee");
 			return studentList;
 		}
 		
